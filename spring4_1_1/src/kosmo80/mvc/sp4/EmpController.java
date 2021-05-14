@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 public class EmpController extends MultiActionController {
 
+	private EmpLogic empLogic = null;
+
 	public ModelAndView getEmpList(HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView				mav		= new ModelAndView();
 		List<Map<String, Object>>	empList	= new ArrayList<>();
@@ -32,14 +34,21 @@ public class EmpController extends MultiActionController {
 	}
 
 	public void empInsert(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		logger.info("empInsert called successfully");
 		res.sendRedirect("di/empInsert");
 	}
 
 	public void empUpdate(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		logger.info("empUpdate called successfully");
 		res.sendRedirect("di/empUpdate");
 	}
 
 	public void empDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		logger.info("empDelete called successfully");
 		res.sendRedirect("di/empDelete");
+	}
+
+	public void setEmpLogic(EmpLogic empLogic) {
+		this.empLogic = empLogic;
 	}
 }
