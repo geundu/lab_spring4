@@ -19,10 +19,8 @@ public class EmpController extends MultiActionController {
 	public ModelAndView getEmpList(HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView				mav		= new ModelAndView();
 		List<Map<String, Object>>	empList	= new ArrayList<>();
-		Map<String, Object>			rmap	= new HashMap<>();
 
-		rmap.put("mem_name", "이순신");
-		empList.add(rmap);
+		empList = empLogic.getEmpList(empList);
 //		ModelAndView는 scope 속성이 request이다.
 		mav.addObject("empList", empList);
 
@@ -48,6 +46,7 @@ public class EmpController extends MultiActionController {
 		res.sendRedirect("di/empDelete");
 	}
 
+	// setter 객체주입 코드
 	public void setEmpLogic(EmpLogic empLogic) {
 		this.empLogic = empLogic;
 	}
