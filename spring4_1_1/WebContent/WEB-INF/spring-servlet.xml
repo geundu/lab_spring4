@@ -14,7 +14,7 @@
 	</bean>
 
 	<bean id="url-mapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<!-- setter 객체주입법같은거임 스펠링 틀리면 좆됨 -->
+		<!-- setter 객체주입법같은거임 스펠링 틀리면 안 됨 -->
 		<property name="mappings">
 			<props>
 				<!-- key는 유니크해야 함. emp-controller는 값 -->

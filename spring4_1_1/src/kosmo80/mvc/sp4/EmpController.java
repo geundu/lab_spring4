@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -17,33 +18,33 @@ public class EmpController extends MultiActionController {
 	private EmpLogic empLogic = null;
 
 	public ModelAndView getEmpList(HttpServletRequest req, HttpServletResponse res) {
-		ModelAndView				mav		= new ModelAndView();
-		List<Map<String, Object>>	empList	= new ArrayList<>();
-
-		empList = empLogic.getEmpList(empList);
+		List<Map<String, Object>>	empList	= empLogic.getEmpList();
 //		ModelAndView는 scope 속성이 request이다.
-		mav.addObject("empList", empList);
+//		getEmpList.jsp에서 사용할 attributeName
+//		mav.addObject("empList", empList);
 
 //		<property name="prefix" value="/WEB-INF/views/" />
 //		<property name="suffix" value=".jsp" />
-//		/WEB-INF/views/getEmpList.jsp
-		mav.setViewName("di/getEmpList");
+//		/WEB-INF/views/di/getEmpList.jsp
+//		mav.setViewName("di/getEmpList");
+		ModelAndView				mav		= new ModelAndView("di/getEmpList", "empList", empList);
 		return mav;
 	}
 
 	public void empInsert(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		logger.info("empInsert called successfully");
+		/*
+		 * sendRedirect()는 브라우저에서 요청하므로 WEB-INF 이하 경로에 접근할 수 없다
+		 */
 		res.sendRedirect("di/empInsert");
 	}
 
 	public void empUpdate(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		logger.info("empUpdate called successfully");
-		res.sendRedirect("di/empUpdate");
 	}
 
 	public void empDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		logger.info("empDelete called successfully");
-		res.sendRedirect("di/empDelete");
 	}
 
 	// setter 객체주입 코드
