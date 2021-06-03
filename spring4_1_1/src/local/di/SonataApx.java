@@ -13,7 +13,7 @@ public class SonataApx {
 		Sonata				myCar	= null;
 		myCar = (Sonata) context.getBean("myCar");
 		System.out.println("\nmyCar의 " + myCar.toString());
-
+ 
 		Sonata yourCar = null;
 		yourCar = (Sonata) context.getBean("yourCar");
 		System.out.println("yourCar의 " + yourCar.toString());

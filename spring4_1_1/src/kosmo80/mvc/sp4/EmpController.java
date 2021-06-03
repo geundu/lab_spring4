@@ -19,7 +19,7 @@ public class EmpController extends MultiActionController {
 
 	public ModelAndView getEmpList(HttpServletRequest req, HttpServletResponse res) {
 		List<Map<String, Object>>	empList	= empLogic.getEmpList();
-//		ModelAndView는 scope 속성이 request이다.
+//		ModelAndView는 scope 속성이 request이다. 
 //		getEmpList.jsp에서 사용할 attributeName
 //		mav.addObject("empList", empList);
 

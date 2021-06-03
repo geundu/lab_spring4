@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- xmlns = xml namespace -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- BeanNameUrlHandlerMapping는 잘 안 쓴다고 함 -->
 	<bean id="default-handler-mapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
@@ -12,6 +11,7 @@
 		<property name="methodNameResolver" ref="emp-resolver" />
 		<property name="empLogic" ref="emp-logic" />
 	</bean>
+
 	<bean id="board-controller" class="web.mvc.Board41Controller">
 		<property name="methodNameResolver" ref="board-resolver" />
 		<property name="boardLogic" ref="board-logic" />
@@ -23,6 +23,7 @@
 			<props>
 				<!-- key는 유니크해야 함. emp-controller는 값 -->
 				<prop key="/board/getBoardList.sp4">board-controller</prop>
+				<prop key="/board/jsonGetBoardList.sp4">board-controller</prop>
 				<prop key="/di/getEmpList.sp4">emp-controller</prop>
 				<prop key="/di/empInsert.sp4">emp-controller</prop>
 				<prop key="/di/empUpdate.sp4">emp-controller</prop>
@@ -42,12 +43,13 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<bean id="board-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
 				<!-- value가 메서드 이름임 -->
-				<prop key="/board/getBoardLists.sp4">getBoardList</prop>
+				<prop key="/board/getBoardList.sp4">getBoardList</prop>
+				<prop key="/board/jsonGetBoardList.sp4">jsonGetBoardList</prop>
 			</props>
 		</property>
 	</bean>

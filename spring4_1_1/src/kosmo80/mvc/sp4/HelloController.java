@@ -14,7 +14,7 @@ public class HelloController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("handleRequestInternal() called successfully");
-		
+
 		res.sendRedirect("/index.jsp");
 
 		return null;
