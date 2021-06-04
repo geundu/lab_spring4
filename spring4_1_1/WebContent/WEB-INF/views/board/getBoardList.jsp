@@ -13,19 +13,25 @@
 <link rel="stylesheet" type="text/css" href="<%=path.toString()%>themes/icon.css">
 <script type="text/javascript" src="<%=path.toString()%>js/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path.toString()%>js/jquery.easyui.min.js"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+	function searchButton() {
+		$('#dg_board').datagrid({
+			url : 'jsonGetBoardList.sp4'
+		});
+	}
+</script>
 </head>
 <body>
 	WEB-INF 게시판 목록 페이지입니다.
 	<br>
 	<br>
 	<div id="ft" style="padding: 2px 5px;">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true">조회</a>
-		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">입력</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="searchButton()">조회</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="insertButton()">입력</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">수정</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">삭제</a>
 	</div>
-	<table class="easyui-datagrid" data-options="title:'게시판', url:'./jsonGetBoardList.sp4', singleSelect:true, toolbar:'#ft'" width="768px">
+	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판', singleSelect:true, toolbar:'#ft'" width="768px">
 		<thead>
 			<tr>
 				<th data-options="field:'BM_NO'">번호</th>

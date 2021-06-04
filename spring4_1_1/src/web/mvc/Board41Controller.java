@@ -51,6 +51,7 @@ public class Board41Controller extends MultiActionController {
 		/* setViewName 안 해줘도 WEB-INF/views 밑의 url이 같은 jsp로 알아서 찾아감 */
 		mav.setViewName("board/getBoardList");
 		mav.addObject("boardList", boardList);
+		logger.info("Board41Controller ===> 데이터는 가져오지만 사용하지는 않음 : " + boardList);
 
 		/* dispatcher로 보내면 WebContent 밑으로 감 */
 //		req.setAttribute("boardList", boardList);

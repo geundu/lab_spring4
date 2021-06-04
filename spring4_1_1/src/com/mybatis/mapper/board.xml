@@ -9,7 +9,7 @@
 		<if test="bm_no != null and bm_no.length() > 0">
 			AND BM_NO LIKE '%'||#{bm_no}||'%'
 		</if>
-		ORDER BY BM_NO
+		ORDER BY BM_NO DESC
 	</select>
 
 	<select id="getBoardSub" parameterType="map" resultType="map">
@@ -17,18 +17,8 @@
 	</select>
 
 	<select id="getBoardAllList" parameterType="map" resultType="map">
-		SELECT BM.BM_NO
-		,BM_TITLE
-		,BM.BM_NAME
-		,BM.BM_DATE
-		,NVL (WM_CONCAT (BS_FILE),
-		'없음') AS "BS_FILE"
-		,BM.BM_HIT
+		SELECT BM.BM_NO, BM_TITLE, BM.BM_NAME, BM.BM_DATE, NVL (WM_CONCAT (BS_FILE), '없음') AS "BS_FILE", BM.BM_HIT
 		FROM BOARD_MASTER_T BM LEFT OUTER JOIN BOARD_SUB_T BS ON BM.BM_NO = BS.BM_NO
-		GROUP BY BM.BM_NO
-		,BM_TITLE
-		,BM.BM_NAME
-		,BM.BM_DATE
-		,BM.BM_HIT
+		GROUP BY BM.BM_NO, BM_TITLE, BM.BM_NAME, BM.BM_DATE, BM.BM_HIT ORDER BY BM_NO DESC
 	</select>
 </mapper>
