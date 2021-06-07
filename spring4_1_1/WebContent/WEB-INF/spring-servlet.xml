@@ -24,6 +24,7 @@
 			<props>
 				<!-- key는 유니크해야 함. emp-controller는 값 -->
 				<prop key="/board/getBoardList.sp4">board-controller</prop>
+				<prop key="/board/boardInsert.sp4">board-controller</prop>
 				<prop key="/board/jsonGetBoardList.sp4">board-controller</prop>
 				<prop key="/di/getEmpList.sp4">emp-controller</prop>
 				<prop key="/di/empInsert.sp4">emp-controller</prop>
@@ -50,6 +51,7 @@
 			<props>
 				<!-- value가 메서드 이름임 -->
 				<prop key="/board/getBoardList.sp4">getBoardList</prop>
+				<prop key="/board/boardInsert.sp4">boardInsert</prop>
 				<prop key="/board/jsonGetBoardList.sp4">jsonGetBoardList</prop>
 			</props>
 		</property>

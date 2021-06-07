@@ -24,4 +24,16 @@ public class Board41MDao {
 		boardList = sqlSessionTemplate.selectList("getBoardAllList", target);
 		return boardList;
 	}
+
+	public int boardInsert(Map<String, Object> target) {
+		logger.info("Board41MDao ===> boardInsert() 호출 성공");
+		int	lastNum		= 0;
+		int	resultNum	= -1;
+		lastNum = sqlSessionTemplate.selectOne("getBmno");
+		logger.info("Board41MDao ===> " + lastNum);
+		target.put("bm_no", ++lastNum);
+		resultNum = sqlSessionTemplate.insert("boardInsert", target);
+
+		return resultNum;
+	}
 }

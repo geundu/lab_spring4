@@ -24,4 +24,21 @@ public class Board41Logic {
 		boardList = boardMDao.getBoardList(target);
 		return boardList;
 	}
+
+	public int boardInsert(Map<String, Object> target) {
+		logger.info("Board41Logic ===> boardInsert() 호출 성공");
+		int	insertResult	= -1;
+		int	fileResult		= 0;
+		int	resultNum		= -1;
+		insertResult = boardMDao.boardInsert(target);
+
+		if (target.containsKey("bs_file")) {
+			fileResult = boardSDao.boardInsert(target);
+		}
+
+		if (insertResult != -1 && fileResult != -1) {
+			resultNum = 1;
+		}
+		return resultNum;
+	}
 }

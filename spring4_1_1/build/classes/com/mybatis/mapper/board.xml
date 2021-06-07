@@ -17,8 +17,26 @@
 	</select>
 
 	<select id="getBoardAllList" parameterType="map" resultType="map">
-		SELECT BM.BM_NO, BM_TITLE, BM.BM_NAME, BM.BM_DATE, NVL (WM_CONCAT (BS_FILE), '없음') AS "BS_FILE", BM.BM_HIT
+		SELECT BM.BM_NO, BM_TITLE, BM.BM_NAME, BM.BM_DATE, NVL (WM_CONCAT (BS_FILE), '없음')
+		AS "BS_FILE", BM.BM_HIT
 		FROM BOARD_MASTER_T BM LEFT OUTER JOIN BOARD_SUB_T BS ON BM.BM_NO = BS.BM_NO
-		GROUP BY BM.BM_NO, BM_TITLE, BM.BM_NAME, BM.BM_DATE, BM.BM_HIT ORDER BY BM_NO DESC
+		GROUP BY BM.BM_NO, BM_TITLE, BM.BM_NAME,
+		BM.BM_DATE, BM.BM_HIT ORDER BY BM_NO DESC
 	</select>
+
+	<select id="getBmno" resultType="int">
+		SELECT COUNT (BM_NO) FROM BOARD_MASTER_T
+	</select>
+
+	<select id="getBsseq" resultType="int">
+		SELECT COUNT (BS_SEQ) FROM BOARD_SUB_T
+	</select>
+
+	<insert id="boardInsert" parameterType="map">
+		INSERT INTO BOARD_MASTER_T (BM_NO, BM_TITLE, BM_NAME, BM_HIT, BM_DATE) VALUES (#{bm_no}, #{bm_title}, #{bm_name}, 0, SYSDATE)
+	</insert>
+
+	<insert id="boardFileInsert" parameterType="map">
+		INSERT INTO BOARD_SUB_T (BM_NO, BS_SEQ, BS_FILE, BS_SIZE) VALUES (#{bm_no}, #{bs_seq}, #{bs_file}, #{bs_size})
+	</insert>
 </mapper>
