@@ -19,8 +19,6 @@ public class Board41SDao {
 		int bs_seq = 0;
 		bs_seq = sqlSessionTemplate.selectOne("getBsseq");
 		target.put("bs_seq", ++bs_seq);
-//		target.put("bs_file", 0);
-//		target.put("bs_size", 0);
 		fileResult = sqlSessionTemplate.insert("boardFileInsert", target);
 
 		return fileResult;
