@@ -32,7 +32,7 @@ public class Board41Logic {
 		int	resultNum		= -1;
 		insertResult = boardMDao.boardInsert(target);
 
-		if (target.containsKey("bs_file")) {
+		if (target.containsKey("bs_file") && insertResult != -1) {
 			fileResult = boardSDao.boardInsert(target);
 		}
 

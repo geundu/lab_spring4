@@ -51,7 +51,6 @@ public class Board41Controller extends MultiActionController {
 		/* setViewName 안 해줘도 WEB-INF/views 밑의 url이 같은 jsp로 알아서 찾아감 */
 		mav.setViewName("board/getBoardList");
 		mav.addObject("boardList", boardList);
-		logger.info("Board41Controller ===> 데이터는 가져오지만 사용하지는 않음 : " + boardList);
 
 		/* dispatcher로 보내면 WebContent 밑으로 감 */
 //		req.setAttribute("boardList", boardList);
@@ -76,6 +75,7 @@ public class Board41Controller extends MultiActionController {
 		out.print(temp);
 	}
 
+	// http://localhost:9000/board/boardInsert.sp4?bm_title=연습&bm_writer=유성열&bm_email=test@gmail.com&bm_content=내용&bm_pw=abcd1234&bs_file=a.txt
 	public void boardInsert(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		HashMapBinder		hmb		= new HashMapBinder(req);
 		Map<String, Object>	target	= new HashMap<String, Object>();
