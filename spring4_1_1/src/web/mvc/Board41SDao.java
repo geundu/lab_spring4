@@ -13,14 +13,25 @@ public class Board41SDao {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 
-	public int boardFileInsert(Map<String, Object> target) {
-		logger.info("Board41SDao ===> boardInsert() 호출 성공");
-		int fileResult = -1;
-		int bs_seq = 0;
-		bs_seq = sqlSessionTemplate.selectOne("getBsseq");
-		target.put("bs_seq", bs_seq);
-		fileResult = sqlSessionTemplate.insert("boardFileInsert", target);
+	public int getBsseq() {
+		logger.info("Board41SDao ===> getBsseq() 호출 성공");
+		int bs_seq = sqlSessionTemplate.selectOne("getBsseq");
 
-		return fileResult;
+		return bs_seq;
+	}
+
+	public int boardFileInsert(Map<String, Object> target) {
+		logger.info("Board41SDao ===> boardFileInsert() 호출 성공");
+		int result = 0;
+
+		try {
+			result = sqlSessionTemplate.insert("boardFileInsert", target);
+		}
+		catch (Exception e) {
+			logger.info(e.getMessage() + " : 파일첨부 실패 return -1");
+			result = -1;
+		}
+
+		return result;
 	}
 }

@@ -8,6 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.vo.BoardMap;
 
+/**
+ * @author GEUNDU-HOME
+ *
+ */
 public class Board41MDao {
 	SqlSessionTemplate	sqlSessionTemplate	= null;
 	BoardMap			boardMap			= null;
@@ -22,30 +26,63 @@ public class Board41MDao {
 		List<Map<String, Object>> boardList = null;
 		boardMap = BoardMap.getInstance();
 		boardList = sqlSessionTemplate.selectList("getBoardList", target);
+
 		return boardList;
 	}
 
-	public int boardInsert(Map<String, Object> target) {
-		logger.info("Board41MDao ===> boardInsert() 호출 성공");
-		int	lastNum		= 0;
-		int	resultNum	= -1;
-		lastNum = sqlSessionTemplate.selectOne("getBmno");
-		logger.info("Board41MDao ===> " + lastNum);
-		target.put("bm_no", lastNum);
-		resultNum = sqlSessionTemplate.insert("boardInsert", target);
+	/**
+	 * bm_no를 가져와 1을 더해주는 메서드
+	 * 
+	 * @return bm_no + 1을 리턴
+	 */
+	public int getBmno() {
+		logger.info("Board41MDao ===> getBmno() 호출 성공");
+		int bm_no = sqlSessionTemplate.selectOne("getBmno");
 
-		return resultNum;
+		return bm_no;
 	}
 
+	/**
+	 * bm_group를 가져와 1을 더해주는 메서드
+	 * 
+	 * @return bm_group + 1을 리턴
+	 */
+	public int getBmGroup() {
+		logger.info("Board41MDao ===> getBmGroup() 호출 성공");
+		int bm_group = sqlSessionTemplate.selectOne("getGroup");
+
+		return bm_group;
+	}
+
+	/**
+	 * 게시글을 insert하는 메서드
+	 * 
+	 * @param target 쿼리스트링이 매핑된 맵을 파라미터로 전달 (#{bm_no}, #{bm_title}, #{bm_writer},
+	 *               TO_CHAR (SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{bm_email},
+	 *               #{bm_content}, #{bm_group}, 0, 0, #{bm_pw}, 0)
+	 * @return insert된 레코드의 개수를 리턴
+	 */
+	public int boardInsert(Map<String, Object> target) {
+		logger.info("Board41MDao ===> boardInsert() 호출 성공");
+		int result = 0;
+
+		try {
+			result = sqlSessionTemplate.insert("boardInsert", target);
+		}
+		catch (Exception e) {
+			logger.info(e.getMessage() + " : 게시글 작성 실패 return -1");
+			result = -1;
+		}
+		return result;
+	}
+
+	/**
+	 * bm_step을 1 더해주는 메서드
+	 * 
+	 * @param target
+	 */
 	public void bmStepUpdate(Map<String, Object> target) {
 		logger.info("Board41MDao ===> bmStepUpdate() 호출 성공");
 		sqlSessionTemplate.update("bmStepUpdate", target);
-	}
-
-	public int getBmGroup() {
-		logger.info("Board41MDao ===> getBmGroup() 호출 성공");
-
-		int result = sqlSessionTemplate.selectOne("getGroup");
-		return result;
 	}
 }

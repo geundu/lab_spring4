@@ -27,12 +27,12 @@ public class Board41Logic {
 
 	public int boardInsert(Map<String, Object> target) {
 		logger.info("Board41Logic ===> boardInsert() 호출 성공");
-		int	insertResult	= -1;
-		int	fileResult		= 0;
-		int	resultNum		= -1;
-
+		int	boardInsert		= 0;
+		int	boardFileInsert	= 0;
+		int	result			= 0;
 		int	bm_no			= 0;
 		int	bm_group		= 0;
+		int	bs_seq			= 0;
 
 		// 새 글은 bm_no, bm_group이 없다.
 		// read.jsp 상세보기는 bm_no, bm_group가 존재하고 0보다 크다.
@@ -50,23 +50,26 @@ public class Board41Logic {
 		}
 		// 새 글일 경우
 		else {
+			bm_no = boardMDao.getBmno();
+			target.put("bm_no", bm_no);
 			bm_group = boardMDao.getBmGroup();
 			target.put("bm_group", bm_group);
 //			target.put("bm_pos", 0);
 //			target.put("bm_step", 0);
 		}
-		insertResult = boardMDao.boardInsert(target);
+		boardInsert = boardMDao.boardInsert(target);
 
 		// 첨부파일이 있는가?
 		if (target.get("bs_file") != null && String.valueOf(target.get("bs_file")).length() > 0) {
 //			target.put("bm_no", bm_no);
-//			target.put("bm_seq", 1);
-			fileResult = boardSDao.boardFileInsert(target);
+			bs_seq = boardSDao.getBsseq();
+			target.put("bs_seq", bs_seq);
+			boardFileInsert = boardSDao.boardFileInsert(target);
 		}
 
-		if (insertResult != -1 && fileResult != -1) {
-			resultNum = 1;
+		if (boardInsert != -1 && boardFileInsert != -1) {
+			result = 1;
 		}
-		return resultNum;
+		return result;
 	}
 }

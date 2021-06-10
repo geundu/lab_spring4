@@ -80,9 +80,9 @@ public class Board41Controller extends MultiActionController {
 		HashMapBinder		hmb		= new HashMapBinder(req);
 		Map<String, Object>	target	= new HashMap<String, Object>();
 		hmb.bind(target);
-		int resultNum = boardLogic.boardInsert(target);
+		int result = boardLogic.boardInsert(target);
 
-		if (resultNum == -1) {
+		if (result == -1) {
 			res.sendRedirect("index.jsp");
 		}
 		else {
