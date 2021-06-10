@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="myCar" class="local.di.Sonata" scope="prototype" />
+	<bean id="yourCar" class="local.di.Sonata" scope="singleton">
+		<constructor-arg index="0" type="java.lang.String" value="black" />
+		<constructor-arg index="1" type="int" value="4" />
+	</bean>
+	
+	<!-- session과 request는 HttpServlet가 없기 때문에(로컬이기 때문에) 에러가 발생한다 -->
+	<bean id="himCar" class="local.di.Sonata" scope="request">
+		<constructor-arg index="0" type="java.lang.String" value="green" />
+		<constructor-arg index="1" type="int" value="4" />
+		<constructor-arg index="2" type="int" value="0" />
+	</bean>
+	<bean id="thisCar" class="local.di.Sonata" scope="session">
+		<constructor-arg index="0" type="java.lang.String" value="white" />
+		<constructor-arg index="1" type="int" value="4" />
+		<constructor-arg index="2" type="int" value="0" />
+	</bean>
+</beans> 
