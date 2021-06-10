@@ -13,12 +13,12 @@ public class Board41SDao {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 
-	public int boardInsert(Map<String, Object> target) {
+	public int boardFileInsert(Map<String, Object> target) {
 		logger.info("Board41SDao ===> boardInsert() 호출 성공");
 		int fileResult = -1;
 		int bs_seq = 0;
 		bs_seq = sqlSessionTemplate.selectOne("getBsseq");
-		target.put("bs_seq", ++bs_seq);
+		target.put("bs_seq", bs_seq);
 		fileResult = sqlSessionTemplate.insert("boardFileInsert", target);
 
 		return fileResult;

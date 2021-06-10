@@ -36,4 +36,16 @@ public class Board41MDao {
 
 		return resultNum;
 	}
+
+	public void bmStepUpdate(Map<String, Object> target) {
+		logger.info("Board41MDao ===> bmStepUpdate() 호출 성공");
+		sqlSessionTemplate.update("bmStepUpdate", target);
+	}
+
+	public int getBmGroup() {
+		logger.info("Board41MDao ===> getBmGroup() 호출 성공");
+
+		int result = sqlSessionTemplate.selectOne("getGroup");
+		return result;
+	}
 }

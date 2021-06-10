@@ -3,7 +3,8 @@
 <mapper namespace="com.mybatis.board">
 	<select id="getBoardList" parameterType="map" resultType="map">
 		SELECT BM.BM_NO, BM.BM_TITLE, BM.BM_WRITER, BM.BM_DATE, BM.BM_HIT, NVL (BS.BS_FILE, '없음') BS_FILE FROM
-		BOARD_MASTER_T BM LEFT OUTER JOIN BOARD_SUB_T BS ON BM.BM_NO = BS.BM_NO
+		BOARD_MASTER_T BM LEFT OUTER JOIN BOARD_SUB_T
+		BS ON BM.BM_NO = BS.BM_NO
 		<if test="cb_search != null and cb_search.equals('bm_title')">
 			AND BM.BM_TITLE LIKE '%'||#{tb_search}||'%'
 		</if>
@@ -26,13 +27,14 @@
 	</select>
 
 	<select id="getBsseq" resultType="int">
-		SELECT COUNT (BS_SEQ) FROM BOARD_SUB_T
+		SELECT NVL ( (SELECT /*+INDEX_DESC(BOARD_SUB_T BOARD_SUB_PK)*/ BS_SEQ FROM BOARD_SUB_T WHERE ROWNUM = 1 AND
+		BS_SEQ > 0) ,0) + 1 BS_SEQ FROM DUAL
 	</select>
 
 	<insert id="boardInsert" parameterType="map">
 		INSERT INTO BOARD_MASTER_T (BM_NO, BM_TITLE, BM_WRITER, BM_DATE, BM_EMAIL, BM_CONTENT, BM_GROUP,
 		BM_POS, BM_STEP, BM_PW, BM_HIT) VALUES (#{bm_no}, #{bm_title}, #{bm_writer}, TO_CHAR (SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{bm_email}, #{bm_content},
-		0, 0, 0, #{bm_pw}, 0)
+		#{bm_group}, 0, 0, #{bm_pw}, 0)
 	</insert>
 
 	<insert id="boardFileInsert" parameterType="map">
