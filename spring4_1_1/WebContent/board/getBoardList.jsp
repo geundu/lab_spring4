@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript">
 	function insertButton() {
+		document.insert_dialog.submit();
 		alert('저장되었습니다.');
 		$('#dlg_ins').dialog('close');
 	}
@@ -58,27 +59,32 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">수정</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">삭제</a>
 	</div>
+
 	<!-- [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[게시글 작성 다이얼로그]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] -->
 	<div id="dlg_ins" class="easyui-dialog" title="글쓰기" data-options="iconCls:'icon-save', closed:'false'"
 		style="width: 500px; height: 500px; padding: 10px">
-		<div style="margin-bottom: 20px">
+		<form name="insert_dialog" action="./boardInsert.sp4" method="get">
 			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" label="작성자:" labelPosition="top" style="width: 100%" />
+				<input class="easyui-textbox" type="text" name="bm_writer" label="작성자:" labelPosition="top" style="width: 100%" />
 			</div>
 			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" label="이메일:" labelPosition="top" data-options="prompt:'abcd@gmail.com', validType:'email'" style="width: 100%" />
+				<input class="easyui-textbox" type="text" name="bm_email" label="이메일:" labelPosition="top"
+					data-options="prompt:'abcd@gmail.com', validType:'email'" style="width: 100%" />
 			</div>
-			<input class="easyui-textbox" label="제목:" labelPosition="top" style="width: 100%" />
-		</div>
-		<div style="margin-bottom: 20px">
-			<input class="easyui-textbox" label="내용:" labelPosition="top" style="width: 100%" />
-		</div>
-		<div style="margin-bottom: 20px">
-			<input class="easyui-textbox" label="비밀번호:" labelPosition="top" type="password" style="width: 100%" />
-		</div>
-		<div>
-			<a href="javascript:insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</a>
-		</div>
+			<div>
+				<input class="easyui-textbox" type="text" name="bm_title" label="제목:" labelPosition="top" style="width: 100%" />
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" type="text" name="bm_content" label="내용:" labelPosition="top" style="width: 100%" />
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name="bm_pw" label="비밀번호:" labelPosition="top" type="password" style="width: 100%" />
+			</div>
+			<div>
+				<button onClick="insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</button>
+				<!-- <a href="javascript:insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</a> -->
+			</div>
+		</form>
 	</div>
 	<!-- [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[게시글 작성 다이얼로그]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] -->
 </body>

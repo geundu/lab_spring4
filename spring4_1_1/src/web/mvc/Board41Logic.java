@@ -22,7 +22,18 @@ public class Board41Logic {
 		logger.info("Board41Logic ===> getBoardList() 호출 성공");
 		List<Map<String, Object>> boardList = null;
 		boardList = boardMDao.getBoardList(target);
+
 		return boardList;
+	}
+
+	public List<Map<String, Object>> getBoardDetail(Map<String, Object> target) {
+		logger.info("Board41Logic ===> getBoardDetail() 호출 성공");
+		List<Map<String, Object>> boardDetail = null;
+		boardDetail = boardMDao.getBoardList(target);
+		int bm_hit = Integer.parseInt(String.valueOf(target.get("bm_no")));
+		boardMDao.hitCount(bm_hit);
+
+		return boardDetail;
 	}
 
 	public int boardInsert(Map<String, Object> target) {

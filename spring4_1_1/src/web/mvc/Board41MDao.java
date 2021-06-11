@@ -24,10 +24,13 @@ public class Board41MDao {
 	public List<Map<String, Object>> getBoardList(Map<String, Object> target) {
 		logger.info("Board41MDao ===> getBoardList() 호출 성공");
 		List<Map<String, Object>> boardList = null;
-		boardMap = BoardMap.getInstance();
 		boardList = sqlSessionTemplate.selectList("getBoardList", target);
 
 		return boardList;
+	}
+
+	public void hitCount(int bm_hit) {
+		sqlSessionTemplate.update("hitCount", bm_hit);
 	}
 
 	/**

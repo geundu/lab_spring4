@@ -8,4 +8,6 @@
 		<property name="boardMDao" ref="boardMDao"></property>
 		<property name="boardSDao" ref="boardSDao"></property>
 	</bean>
+	
+	<!-- 트랜잭션 처리  throw e; crudXXX doXXX DI 해줘야 할 게 있다. -->
 </beans>

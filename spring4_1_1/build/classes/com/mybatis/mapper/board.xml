@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.board">
 	<select id="getBoardList" parameterType="map" resultType="map">
-		SELECT BM.BM_NO, BM.BM_TITLE, BM.BM_WRITER, BM.BM_DATE, BM.BM_HIT, NVL (BS.BS_FILE, '없음') BS_FILE FROM
-		BOARD_MASTER_T BM LEFT OUTER JOIN BOARD_SUB_T
-		BS ON BM.BM_NO = BS.BM_NO
+		SELECT BM.BM_NO, BM.BM_TITLE, BM.BM_WRITER, BM.BM_CONTENT, BM.BM_EMAIL, BM.BM_PW, BM.BM_DATE, BM.BM_HIT, NVL (BS.BS_FILE, '없음') BS_FILE FROM BOARD_MASTER_T BM, BOARD_SUB_T BS WHERE BM.BM_NO = BS.BM_NO(+)
 		<if test="cb_search != null and cb_search.equals('bm_title')">
 			AND BM.BM_TITLE LIKE '%'||#{tb_search}||'%'
+		</if>
+		<if test="bm_no > 0">
+			AND BM.BM_NO = #{bm_no}
 		</if>
 		ORDER BY BM_NO DESC<!-- , BM_GROUP DESC, BM_STEP ASC -->
 	</select>
@@ -24,6 +25,7 @@
 		SELECT NVL ((SELECT /*+INDEX_DESC(BOARD_MASTER_T I_GROUP)*/ BM_GROUP FROM BOARD_MASTER_T WHERE ROWNUM = 1
 		AND
 		BM_GROUP > 0) ,0) + 1 BM_GROUP FROM DUAL
+		<!-- BM_GROUP > 0은 항상 참이지만 인덱스를 사용하기 위해 일부러 넣어준 것이고 ROWNUM = 1은 스톱키 역할(부분범위처리)을 한다. -->
 	</select>
 
 	<select id="getBsseq" resultType="int">

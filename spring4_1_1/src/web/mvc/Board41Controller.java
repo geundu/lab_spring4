@@ -59,6 +59,22 @@ public class Board41Controller extends MultiActionController {
 		return mav;
 	}
 
+	public ModelAndView getBoardDetail(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		logger.info("Board41Controller ===> getBoardDetail() 호출 성공");
+		req.setCharacterEncoding("UTF-8");
+		ModelAndView		mav		= new ModelAndView();
+		HashMapBinder		hmb		= new HashMapBinder(req);
+		Map<String, Object>	target	= new HashMap<String, Object>();
+		hmb.bind(target);
+		logger.info(target);
+		List<Map<String, Object>> boardDetail = boardLogic.getBoardDetail(target);
+
+		mav.setViewName("board/read");
+		mav.addObject("boardDetail", boardDetail);
+
+		return mav;
+	}
+
 	// json으로 내보내주는 방법(이 방법은 @RestController:String가 생겼을만큼.. 쓸만하다는건가?
 	// @Controller:void, ModelAndView, String)
 	public void jsonGetBoardList(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -86,7 +102,7 @@ public class Board41Controller extends MultiActionController {
 			res.sendRedirect("index.jsp");
 		}
 		else {
-			res.sendRedirect("./getBoardList.sp4");
+			res.sendRedirect("./getBoardList.jsp");
 		}
 	}
 }

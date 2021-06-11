@@ -2,15 +2,15 @@
 <%@ page import="java.util.List, java.util.Map"%>
 <%
 	StringBuilder path = new StringBuilder(request.getContextPath());
-	path.append("/");
-	List<Map<String, Object>> boardList = null;
-	boardList = (List<Map<String, Object>>) request.getAttribute("boardList");
-	int size = 0;
-	
-	if (boardList != null) {
-		size = boardList.size();
-	}
-	out.print("size:" + size);
+path.append("/");
+List<Map<String, Object>> boardList = null;
+boardList = (List<Map<String, Object>>) request.getAttribute("boardList");
+int size = 0;
+
+if (boardList != null) {
+	size = boardList.size();
+}
+out.print("size:" + size);
 %>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,11 @@
 <script type="text/javascript" src="<%=path.toString()%>js/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path.toString()%>js/jquery.easyui.min.js"></script>
 <script type="text/javascript">
+	function search() {
+		$('#dg_board').datagrid({
+			url : 'jsonGetBoardList.sp4',
+		});
+	}
 	function boardInsert() {
 		$('#dg_board').datagrid({
 			url : './jsonGetBoardList.sp4',
@@ -72,9 +77,9 @@
 </script>
 </head>
 <body>
-	<br /> WebContent 게시판 목록 페이지입니다.
+	<br /> WEB-INF 게시판 목록 페이지입니다.
 	<br />
-	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판',toolbar:'#tb_board'" style="width: 1002px; height: 350px">
+	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판', singleSelect:true, toolbar:'#tb_board'" style="width: 1002px; height: 350px">
 		<!-- <thead>
 			<tr>
 				<th data-options="width: '150px', field:'BM_NO'">글번호</th>
@@ -99,7 +104,7 @@
 			%>
 			<tr>
 				<td><%=index.get("BM_NO")%></td>
-				<td><%=index.get("BM_TITLE")%></td>
+				<td><a href="./getBoardDetail.sp4?bm_no=<%=index.get("BM_NO")%>"><%=index.get("BM_TITLE")%></a></td>
 				<td><%=index.get("BM_DATE")%></td>
 				<td><%=index.get("BS_FILE")%></td>
 				<td><%=index.get("BM_HIT")%></td>
@@ -113,7 +118,7 @@
 		</tbody>
 	</table>
 	<div id="tb_board" style="padding: 2px 5px;">
-		<a id="btn_sel" href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true">조회</a>
+		<a id="btn_sel" href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search" plain="true">조회</a>
 		<a id="btn_ins" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">입력</a>
 		<a id="btn_upd" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">수정</a>
 		<a id="btn_del" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">삭제</a>
