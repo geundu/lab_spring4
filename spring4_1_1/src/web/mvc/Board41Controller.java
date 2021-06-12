@@ -105,4 +105,34 @@ public class Board41Controller extends MultiActionController {
 			res.sendRedirect("./getBoardList.jsp");
 		}
 	}
+
+	public void boardDelete(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		HashMapBinder		hmb		= new HashMapBinder(req);
+		Map<String, Object>	target	= new HashMap<String, Object>();
+		hmb.bind(target);
+
+		int result = boardLogic.boardDelete(target);
+
+		if (result == -1) {
+			res.sendRedirect("index.jsp");
+		}
+		else {
+			res.sendRedirect("./getBoardList.jsp");
+		}
+	}
+
+	public void boardUpdate(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		HashMapBinder		hmb		= new HashMapBinder(req);
+		Map<String, Object>	target	= new HashMap<String, Object>();
+		hmb.bind(target);
+
+		int result = boardLogic.boardUpdate(target);
+
+		if (result == -1) {
+			res.sendRedirect("index.jsp");
+		}
+		else {
+			res.sendRedirect("./getBoardList.jsp");
+		}
+	}
 }

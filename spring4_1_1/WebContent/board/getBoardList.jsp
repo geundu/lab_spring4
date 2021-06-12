@@ -41,7 +41,7 @@
 	WebContent 게시판 목록 페이지입니다.
 	<br />
 	<br />
-	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판', singleSelect:true" style="width: 1002px; height: 350px">
+	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판', singleSelect:true" style="width: 1002px; height: 700px">
 		<thead>
 			<tr>
 				<th data-options="field:'BM_NO'">번호</th>

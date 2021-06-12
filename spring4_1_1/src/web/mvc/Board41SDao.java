@@ -20,15 +20,30 @@ public class Board41SDao {
 		return bs_seq;
 	}
 
-	public int boardFileInsert(Map<String, Object> target) {
-		logger.info("Board41SDao ===> boardFileInsert() 호출 성공");
+	public int boardSInsert(Map<String, Object> target) {
+		logger.info("Board41SDao ===> boardSInsert() 호출 성공");
 		int result = 0;
 
 		try {
-			result = sqlSessionTemplate.insert("boardFileInsert", target);
+			result = sqlSessionTemplate.insert("boardSInsert", target);
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage() + " : 파일첨부 실패 return -1");
+			result = -1;
+		}
+
+		return result;
+	}
+
+	public int boardSDelete(Map<String, Object> target) {
+		logger.info("Board41SDao ===> boardSDelete() 호출 성공");
+		int result = 0;
+
+		try {
+			result = sqlSessionTemplate.insert("boardSDelete", target);
+		}
+		catch (Exception e) {
+			logger.info(e.getMessage() + " : 첨부파일 삭제 실패 return -1");
 			result = -1;
 		}
 

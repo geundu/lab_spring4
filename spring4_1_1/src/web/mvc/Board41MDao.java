@@ -65,15 +65,29 @@ public class Board41MDao {
 	 *               #{bm_content}, #{bm_group}, 0, 0, #{bm_pw}, 0)
 	 * @return insert된 레코드의 개수를 리턴
 	 */
-	public int boardInsert(Map<String, Object> target) {
-		logger.info("Board41MDao ===> boardInsert() 호출 성공");
+	public int boardMInsert(Map<String, Object> target) {
+		logger.info("Board41MDao ===> boardMInsert() 호출 성공");
 		int result = 0;
 
 		try {
-			result = sqlSessionTemplate.insert("boardInsert", target);
+			result = sqlSessionTemplate.insert("boardMInsert", target);
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage() + " : 게시글 작성 실패 return -1");
+			result = -1;
+		}
+		return result;
+	}
+
+	public int boardMDelete(Map<String, Object> target) {
+		logger.info("Board41MDao ===> boardMDelete() 호출 성공");
+		int result = 0;
+
+		try {
+			result = sqlSessionTemplate.delete("boardMDelete", target);
+		}
+		catch (Exception e) {
+			logger.info(e.getMessage() + " : 게시글 삭제 실패 return -1");
 			result = -1;
 		}
 		return result;
@@ -87,5 +101,27 @@ public class Board41MDao {
 	public void bmStepUpdate(Map<String, Object> target) {
 		logger.info("Board41MDao ===> bmStepUpdate() 호출 성공");
 		sqlSessionTemplate.update("bmStepUpdate", target);
+	}
+
+	/**
+	 * 게시글 수정 메서드 UPDATE BOARD_MASTER_T SET BM_TITLE = #{bm_title}, BM_CONTENT =
+	 * #{bm_content} WHERE BM_NO = #{bm_no} AND BM_PW = #{bm_pw}
+	 * 
+	 * @param target - 글번호, 제목, 내용, 비밀번호가 매핑된 맵
+	 * @return 업데이트된 레코드의 개수를 리턴
+	 */
+	public int boardMUpdate(Map<String, Object> target) {
+
+		logger.info("Board41MDao ===> boardMUpdate() 호출 성공");
+		int result = 0;
+
+		try {
+			result = sqlSessionTemplate.update("boardMUpdate", target);
+		}
+		catch (Exception e) {
+			logger.info(e.getMessage() + " : 게시글 수정 실패 return -1");
+			result = -1;
+		}
+		return result;
 	}
 }

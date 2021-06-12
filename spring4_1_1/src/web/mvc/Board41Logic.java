@@ -38,8 +38,8 @@ public class Board41Logic {
 
 	public int boardInsert(Map<String, Object> target) {
 		logger.info("Board41Logic ===> boardInsert() 호출 성공");
-		int	boardInsert		= 0;
-		int	boardFileInsert	= 0;
+		int	boardMInsert	= 0;
+		int	boardSInsert	= 0;
 		int	result			= 0;
 		int	bm_no			= 0;
 		int	bm_group		= 0;
@@ -68,18 +68,55 @@ public class Board41Logic {
 //			target.put("bm_pos", 0);
 //			target.put("bm_step", 0);
 		}
-		boardInsert = boardMDao.boardInsert(target);
+		boardMInsert = boardMDao.boardMInsert(target);
 
 		// 첨부파일이 있는가?
 		if (target.get("bs_file") != null && String.valueOf(target.get("bs_file")).length() > 0) {
 //			target.put("bm_no", bm_no);
 			bs_seq = boardSDao.getBsseq();
 			target.put("bs_seq", bs_seq);
-			boardFileInsert = boardSDao.boardFileInsert(target);
+			boardSInsert = boardSDao.boardSInsert(target);
 		}
 
-		if (boardInsert != -1 && boardFileInsert != -1) {
+		if (boardMInsert != -1 && boardSInsert != -1) {
 			result = 1;
+		}
+		else {
+			result = -1;
+		}
+		return result;
+	}
+
+	public int boardDelete(Map<String, Object> target) {
+		int	boardMDelete	= 0;
+		int	boardSDelete	= 0;
+		int	result			= 0;
+
+		boardSDelete = boardSDao.boardSDelete(target);
+		boardMDelete = boardMDao.boardMDelete(target);
+
+		if (boardMDelete != -1 && boardSDelete != -1) {
+			result = 1;
+		}
+		else {
+			result = -1;
+		}
+		return result;
+	}
+
+	public int boardUpdate(Map<String, Object> target) {
+		int	boardMUpdate	= 0;
+		int	boardSUpdate	= 0;
+		int	result			= 0;
+
+//		boardSUpdate = boardSDao.boardSUpdate(target);
+		boardMUpdate = boardMDao.boardMUpdate(target);
+
+		if (boardMUpdate != -1 && boardSUpdate != -1) {
+			result = 1;
+		}
+		else {
+			result = -1;
 		}
 		return result;
 	}
