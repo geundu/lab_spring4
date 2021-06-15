@@ -8,10 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.vo.BoardMap;
 
-/**
- * @author GEUNDU-HOME
- *
- */
 public class Board41MDao {
 	SqlSessionTemplate	sqlSessionTemplate	= null;
 	BoardMap			boardMap			= null;
@@ -30,6 +26,7 @@ public class Board41MDao {
 	}
 
 	public void hitCount(int bm_hit) {
+		logger.info("Board41MDao ===> hitCount() 호출 성공");
 		sqlSessionTemplate.update("hitCount", bm_hit);
 	}
 

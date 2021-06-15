@@ -2,8 +2,8 @@
 <%@ page import="java.util.List, java.util.Map"%>
 <%
 	StringBuilder path = new StringBuilder(request.getContextPath());
-path.append("/");
-List<Map<String, Object>> boardDetail = (List<Map<String, Object>>) request.getAttribute("boardDetail");
+	path.append("/");
+	List<Map<String, Object>> boardDetail = (List<Map<String, Object>>) request.getAttribute("boardDetail");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@ List<Map<String, Object>> boardDetail = (List<Map<String, Object>>) request.getA
 
 	function isCorrect() {
 
-		let bm_pw ="<%=boardDetail.get(0).get("BM_PW")%>"
+		let bm_pw = <%=boardDetail.get(0).get("BM_PW")%>
 		let user_pw = document.getElementsByName("bm_pw");
 		if (bm_pw == user_pw[1].value) {
 

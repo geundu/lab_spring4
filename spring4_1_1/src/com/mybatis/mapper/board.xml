@@ -5,7 +5,7 @@
 		SELECT BM.BM_NO, BM.BM_TITLE, BM.BM_WRITER, BM.BM_CONTENT, BM.BM_EMAIL, BM.BM_PW, BM.BM_DATE, BM.BM_HIT, NVL (BS.BS_FILE, '없음') BS_FILE FROM
 		BOARD_MASTER_T BM, BOARD_SUB_T BS WHERE BM.BM_NO = BS.BM_NO(+)
 		<if test="cb_search != null and cb_search.equals('bm_title')">
-			AND BM.BM_TITLE LIKE '%'||#{tb_search}||'%'
+			AND BM.BM_TITLE LIKE '%'||#{cb_search}||'%'
 		</if>
 		<if test="bm_no > 0">
 			AND BM.BM_NO = #{bm_no}
@@ -36,8 +36,8 @@
 
 	<insert id="boardMInsert" parameterType="map">
 		INSERT INTO BOARD_MASTER_T (BM_NO, BM_TITLE, BM_WRITER, BM_DATE, BM_EMAIL, BM_CONTENT, BM_GROUP,
-		BM_POS, BM_STEP, BM_PW, BM_HIT) VALUES (#{bm_no}, #{bm_title}, #{bm_writer}, TO_CHAR (SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{bm_email}, #{bm_content},
-		#{bm_group}, 0, 0, #{bm_pw}, 0)
+		BM_POS, BM_STEP, BM_PW) VALUES (#{bm_no}, #{bm_title}, #{bm_writer}, TO_CHAR (SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{bm_email}, #{bm_content},
+		#{bm_group}, 0, 0, #{bm_pw})
 	</insert>
 
 	<insert id="boardSInsert" parameterType="map">

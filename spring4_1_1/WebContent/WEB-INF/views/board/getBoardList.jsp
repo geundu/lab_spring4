@@ -52,11 +52,15 @@ out.print("size:" + size);
 			columns : [ [ {
 				field : 'BM_NO',
 				title : '글번호',
-				width : 150
+				width : 100
 			}, {
 				field : 'BM_TITLE',
 				title : '제목',
 				width : 300
+			}, {
+				field : 'BM_WRITER',
+				title : '작성자',
+				width : 100
 			}, {
 				field : 'BM_DATE',
 				title : '작성일',
@@ -68,8 +72,14 @@ out.print("size:" + size);
 			}, {
 				field : 'BM_HIT',
 				title : '조회수',
-				width : 150
-			} ] ]
+				width : 100
+			} ] ],
+			toolbar : '#tb_board',
+			onDblClickCell : function(index, field, value) {
+				if ("BS_FILE" == field) {
+					location.href = 'download.jsp?bs_file=' + value;
+				}
+			}
 		});
 		$('#btn_sel').bind('click', function() {
 			boardSelect();
@@ -89,7 +99,7 @@ out.print("size:" + size);
 <body>
 	<br /> WEB-INF 게시판 목록 페이지입니다.
 	<br />
-	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판', singleSelect:true, toolbar:'#tb_board'" style="width: 1002px; height: 700px">
+	<table id="dg_board" class="easyui-datagrid" data-options="title:'게시판', singleSelect:true" style="width: 1002px; height: 700px">
 		<!-- <thead>
 			<tr>
 				<th data-options="width: '150px', field:'BM_NO'">글번호</th>
@@ -115,6 +125,7 @@ out.print("size:" + size);
 			<tr>
 				<td><%=index.get("BM_NO")%></td>
 				<td><a href="./getBoardDetail.sp4?bm_no=<%=index.get("BM_NO")%>"><%=index.get("BM_TITLE")%></a></td>
+				<td><%=index.get("BM_WRITER")%></td>
 				<td><%=index.get("BM_DATE")%></td>
 				<td><%=index.get("BS_FILE")%></td>
 				<td><%=index.get("BM_HIT")%></td>
@@ -135,9 +146,12 @@ out.print("size:" + size);
 	</div>
 
 	<!-- [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[게시글 작성 다이얼로그]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] -->
-	<div id="dlg_ins" class="easyui-dialog" title="글쓰기" data-options="iconCls:'icon-save', closed:'false'"
-		style="width: 500px; height: 500px; padding: 10px">
-		<form name="insert_dialog" action="./boardInsert.sp4" method="get">
+	<div id="dlg_ins" class="easyui-dialog" title="글쓰기" data-options="iconCls:'icon-save, footer:#ft_ins', closed:'false'"
+		style="width: 500px; height: 650px; padding: 10px">
+		<form name="insert_dialog" action="./boardInsert.sp4" enctype="multipart/form-data" method="post">
+			<div>
+				<input class="easyui-textbox" type="text" name="bm_title" label="제목:" labelPosition="top" style="width: 100%" />
+			</div>
 			<div style="margin-bottom: 20px">
 				<input class="easyui-textbox" type="text" name="bm_writer" label="작성자:" labelPosition="top" style="width: 100%" />
 			</div>
@@ -145,20 +159,25 @@ out.print("size:" + size);
 				<input class="easyui-textbox" type="text" name="bm_email" label="이메일:" labelPosition="top"
 					data-options="prompt:'abcd@gmail.com', validType:'email'" style="width: 100%" />
 			</div>
-			<div>
-				<input class="easyui-textbox" type="text" name="bm_title" label="제목:" labelPosition="top" style="width: 100%" />
-			</div>
 			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" type="text" name="bm_content" label="내용:" labelPosition="top" style="width: 100%" />
+				<input class="easyui-textbox" type="text" name="bm_content" label="내용:" labelPosition="top" style="width: 100%"
+					data-options="prompt:'내용', multiline:true, width:500, height:120" />
 			</div>
 			<div style="margin-bottom: 20px">
 				<input class="easyui-textbox" name="bm_pw" label="비밀번호:" labelPosition="top" type="password" style="width: 100%" />
 			</div>
-			<div>
-				<button onClick="insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</button>
-				<!-- <a href="javascript:insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</a> -->
+			<div style="margin-bottom: 20px">
+				<input class="easyui-filebox" name="bs_file" label="첨부파일:" labelPosition="top" data-options="width:'400px'">
 			</div>
+			<!-- <div>
+				<button onClick="insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</button>
+				<a href="javascript:insertButton()" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100%; height: 32px">작성</a>
+			</div> -->
 		</form>
+		<div id="ft_ins">
+			<a href="javascript:insertButton()" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true">작성</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true">취소</a>
+		</div>
 	</div>
 	<!-- [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[게시글 작성 다이얼로그]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] -->
 </body>

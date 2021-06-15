@@ -95,14 +95,14 @@ public class Board41Controller extends MultiActionController {
 	public void boardInsert(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		HashMapBinder		hmb		= new HashMapBinder(req);
 		Map<String, Object>	target	= new HashMap<String, Object>();
-		hmb.bind(target);
+		hmb.multiBind(target);
 		int result = boardLogic.boardInsert(target);
 
 		if (result == -1) {
 			res.sendRedirect("index.jsp");
 		}
 		else {
-			res.sendRedirect("./getBoardList.jsp");
+			res.sendRedirect("./getBoardList.sp4");
 		}
 	}
 
@@ -110,14 +110,13 @@ public class Board41Controller extends MultiActionController {
 		HashMapBinder		hmb		= new HashMapBinder(req);
 		Map<String, Object>	target	= new HashMap<String, Object>();
 		hmb.bind(target);
-
 		int result = boardLogic.boardDelete(target);
 
 		if (result == -1) {
 			res.sendRedirect("index.jsp");
 		}
 		else {
-			res.sendRedirect("./getBoardList.jsp");
+			res.sendRedirect("./getBoardList.sp4");
 		}
 	}
 
@@ -132,7 +131,7 @@ public class Board41Controller extends MultiActionController {
 			res.sendRedirect("index.jsp");
 		}
 		else {
-			res.sendRedirect("./getBoardList.jsp");
+			res.sendRedirect("./getBoardList.sp4");
 		}
 	}
 }
