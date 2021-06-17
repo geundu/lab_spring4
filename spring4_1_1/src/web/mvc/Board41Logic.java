@@ -53,6 +53,9 @@ public class Board41Logic {
 			bm_group = Integer.parseInt(String.valueOf(target.get("bm_group")));
 		}
 
+		bm_no = boardMDao.getBmno();
+		target.put("bm_no", bm_no);
+
 		// 댓글일 경우
 		if (bm_group > 0) {
 			boardMDao.bmStepUpdate(target);
@@ -61,12 +64,10 @@ public class Board41Logic {
 		}
 		// 새 글일 경우
 		else {
-			bm_no = boardMDao.getBmno();
-			target.put("bm_no", bm_no);
 			bm_group = boardMDao.getBmGroup();
 			target.put("bm_group", bm_group);
-//			target.put("bm_pos", 0);
-//			target.put("bm_step", 0);
+			target.put("bm_pos", 0);
+			target.put("bm_step", 0);
 		}
 		boardMInsert = boardMDao.boardMInsert(target);
 

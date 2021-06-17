@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map"%>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%
 	StringBuilder path = new StringBuilder(request.getContextPath());
 path.append("/");
@@ -18,6 +19,11 @@ out.print("size:" + size);
 <meta charset="UTF-8">
 <title>게시판 구현 - WEB-INF</title>
 <jsp:include page="../../../common/commonUIglobal.jsp" flush="false" />
+<style type="text/css">
+a {
+	text-decoration: none;
+}
+</style>
 <script type="text/javascript">
 	function boardInsert() {
 		$('#dlg_ins').dialog('open');
@@ -38,11 +44,10 @@ out.print("size:" + size);
 		$('#dlg_ins').dialog('close');
 	}
 
-	function deleteButton() {
+	function boardDelete() {
 		let row = $('#dg_board').datagrid('getSelected');
-
 		if (row) {
-			location.href = './boardDelete.sp4?bm_no=' + row.BM_NO;
+			location.href = "boardDelete.sp4?bm_no=" + row.BM_NO;
 		}
 	}
 </script>
@@ -75,23 +80,24 @@ out.print("size:" + size);
 				width : 100
 			} ] ],
 			toolbar : '#tb_board',
-			onDblClickCell : function(index, field, value) {
-				if ("BS_FILE" == field) {
-					location.href = 'download.jsp?bs_file=' + value;
-				}
+		/* onDblClickCell : function(index, field, value) {
+			if ("BS_FILE" == field) {
+				location.href = 'download.jsp?bs_file=' + value;
 			}
+		} */
 		});
 		$('#btn_sel').bind('click', function() {
-			boardSelect();
+			/* boardSelect(); */
 		});
 
 		$('#btn_ins').bind('click', function() {
 			boardInsert();
 		});
 		$('#btn_upd').bind('click', function() {
+
 		});
 		$('#btn_del').bind('click', function() {
-			deleteButton();
+			/* boardDelete(); */
 		});
 	});
 </script>
@@ -123,11 +129,41 @@ out.print("size:" + size);
 			for (Map<String, Object> index : boardList) {
 			%>
 			<tr>
-				<td><%=index.get("BM_NO")%></td>
-				<td><a href="./getBoardDetail.sp4?bm_no=<%=index.get("BM_NO")%>"><%=index.get("BM_TITLE")%></a></td>
+				<td>
+					<!-- 댓글 -->
+					<%
+						String imgPath = "\\board\\";
+
+					if (Integer.parseInt(String.valueOf((index.get("BM_POS")))) > 0) {
+
+						for (int i = 0; i < Integer.parseInt(String.valueOf((index.get("BM_POS")))); i++) {
+							out.print("&nbsp;&nbsp");
+						}
+					%>
+					<img src="<%=imgPath%>reply.png" border="0">
+					<%
+						}
+					%>
+					<%=index.get("BM_NO")%></td>
+				<td>
+					<a href="./getBoardDetail.sp4?bm_no=<%=index.get("BM_NO")%>"><%=index.get("BM_TITLE")%></a>
+				</td>
 				<td><%=index.get("BM_WRITER")%></td>
 				<td><%=index.get("BM_DATE")%></td>
+				<%
+					if (!"없음".equals(index.get("BS_FILE"))) {
+				%>
+				<td>
+					<a href="./download.jsp?bs_file=<%=index.get("BS_FILE")%>"><%=index.get("BS_FILE")%></a>
+				</td>
+				<%
+					}
+				else {
+				%>
 				<td><%=index.get("BS_FILE")%></td>
+				<%
+					}
+				%>
 				<td><%=index.get("BM_HIT")%></td>
 			</tr>
 			<%
@@ -176,7 +212,7 @@ out.print("size:" + size);
 		</form>
 		<div id="ft_ins">
 			<a href="javascript:insertButton()" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true">작성</a>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true">취소</a>
+			<a href="javascript:$('dlg_ins').dialog('close')" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true">닫기</a>
 		</div>
 	</div>
 	<!-- [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[게시글 작성 다이얼로그]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] -->
