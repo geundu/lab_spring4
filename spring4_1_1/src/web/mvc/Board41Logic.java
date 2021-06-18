@@ -110,8 +110,8 @@ public class Board41Logic {
 		int	boardSUpdate	= 0;
 		int	result			= 0;
 
-//		boardSUpdate = boardSDao.boardSUpdate(target);
 		boardMUpdate = boardMDao.boardMUpdate(target);
+		boardSUpdate = boardSDao.boardSUpdate(target);
 
 		if (boardMUpdate != -1 && boardSUpdate != -1) {
 			result = 1;

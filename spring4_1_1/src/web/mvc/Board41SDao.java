@@ -49,4 +49,19 @@ public class Board41SDao {
 
 		return result;
 	}
+
+	public int boardSUpdate(Map<String, Object> target) {
+
+		logger.info("Board41SDao ===> boardSUpdate() 호출 성공");
+		int result = 0;
+
+		try {
+			result = sqlSessionTemplate.update("boardSUpdate", target);
+		}
+		catch (Exception e) {
+			logger.info(e.getMessage() + " : 첨부파일 변경 실패 return -1");
+			result = -1;
+		}
+		return result;
+	}
 }

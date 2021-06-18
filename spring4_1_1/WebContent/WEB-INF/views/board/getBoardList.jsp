@@ -2,16 +2,11 @@
 <%@ page import="java.util.List, java.util.Map"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%
-	StringBuilder path = new StringBuilder(request.getContextPath());
-path.append("/");
-List<Map<String, Object>> boardList = null;
-boardList = (List<Map<String, Object>>) request.getAttribute("boardList");
+	List<Map<String, Object>> boardList = (List<Map<String, Object>>) request.getAttribute("boardList");
 int size = 0;
 
-if (boardList != null) {
+if (boardList != null)
 	size = boardList.size();
-}
-out.print("size:" + size);
 %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +20,7 @@ a {
 }
 </style>
 <script type="text/javascript">
+
 	function boardInsert() {
 		$('#dlg_ins').dialog('open');
 	}
@@ -182,7 +178,7 @@ a {
 	</div>
 
 	<!-- [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[게시글 작성 다이얼로그]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] -->
-	<div id="dlg_ins" class="easyui-dialog" title="글쓰기" data-options="iconCls:'icon-save, footer:#ft_ins', closed:'false'"
+	<div id="dlg_ins" class="easyui-dialog" title="글쓰기" data-options="iconCls:'icon-save, footer:#ft_ins', closed:'false', modal:true"
 		style="width: 500px; height: 650px; padding: 10px">
 		<form name="insert_dialog" action="./boardInsert.sp4" enctype="multipart/form-data" method="post">
 			<div>

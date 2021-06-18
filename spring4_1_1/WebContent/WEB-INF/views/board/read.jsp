@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map"%>
 <%
-	StringBuilder path = new StringBuilder(request.getContextPath());
-path.append("/");
-List<Map<String, Object>> boardDetail = (List<Map<String, Object>>) request.getAttribute("boardDetail");
-
-for (Map<String, Object> index : boardDetail) {
-	out.print(index.get("BM_GROUP"));
-}
+	List<Map<String, Object>> boardDetail = (List<Map<String, Object>>) request.getAttribute("boardDetail");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,9 +49,8 @@ for (Map<String, Object> index : boardDetail) {
 	}
 
 	function isCorrect() {
-		let bm_pw =
-<%=boardDetail.get(0).get("BM_PW")%>
-	let user_pw = document.getElementById("bm_pw");
+		let bm_pw = <%=boardDetail.get(0).get("BM_PW")%>
+		let user_pw = document.getElementById("bm_pw");
 		if (bm_pw == user_pw.value) {
 			return true;
 		} else {
@@ -68,9 +61,7 @@ for (Map<String, Object> index : boardDetail) {
 	function boardDelete() {
 		if (isCorrect()) {
 			alert('삭제되었습니다.');
-			location.href = './boardDelete.sp4?bm_no='
-					+
-<%=boardDetail.get(0).get("BM_NO")%>
+			location.href = './boardDelete.sp4?bm_no=' + <%=boardDetail.get(0).get("BM_NO")%>
 	} else {
 			alert('비밀번호가 틀렸습니다.');
 		}
@@ -79,9 +70,8 @@ for (Map<String, Object> index : boardDetail) {
 </head>
 <body>
 	<!-- 조회 및 수정 창 시작 -->
-	<form id="read_update" action="./boardUpdate.sp4" method="get">
+	<form id="read_update" action="./boardUpdate.sp4" enctype="multipart/form-data" method="get">
 		<input type="hidden" name="bm_no" value="<%=boardDetail.get(0).get("BM_NO")%>">
-		<input type="hidden" name="bs_file" value="<%=boardDetail.get(0).get("BS_FILE")%>">
 		<table align="center" id="p" class="easyui-panel" title="글상세보기" data-options="footer:'#tb_read'"
 			style="width: 670px; height: 380px; padding: 10px; background: #fafafa">
 			<tr>
@@ -111,6 +101,13 @@ for (Map<String, Object> index : boardDetail) {
 				</td>
 			</tr>
 			<tr>
+				<td width="100px">첨부파일</td>
+				<td width="500px">
+					<input id="bs_file" value="<%=boardDetail.get(0).get("BS_FILE")%>" name="bs_file" class="easyui-filebox" name="bs_file"
+						data-options="width:'400px'" />
+				</td>
+			</tr>
+			<tr>
 				<td>비밀번호</td>
 				<td>
 					<input id="bm_pw" value="" name="bm_pw" class="easyui-passwordbox" />
@@ -118,7 +115,6 @@ for (Map<String, Object> index : boardDetail) {
 			</tr>
 		</table>
 	</form>
-
 	<%--
           <div
             id="dlg_upd"

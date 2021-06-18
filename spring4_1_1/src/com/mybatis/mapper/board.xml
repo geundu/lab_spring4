@@ -60,6 +60,12 @@
 		WHERE BM_NO = #{bm_no} AND
 		BM_PW = #{bm_pw}
 	</update>
+	
+	<update id="boardSUpdate" parameterType="map">
+		UPDATE BOARD_SUB_T
+		SET BS_FILE = #{bs_file}
+		WHERE BM_NO = #{bm_no}
+	</update>
 
 	<update id="bmStepUpdate" parameterType="map">
 		UPDATE BOARD_MASTER_T SET BM_STEP = BM_STEP + 1
