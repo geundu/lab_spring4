@@ -12,9 +12,9 @@
 		</if>
 		ORDER BY BM.BM_GROUP DESC, BM.BM_STEP ASC
 	</select>
-	
+
 	<select id="getBoardDetail" parameterType="map" resultType="map">
-	
+
 	</select>
 
 	<select id="getBoardSub" parameterType="map" resultType="map">
@@ -60,7 +60,7 @@
 		WHERE BM_NO = #{bm_no} AND
 		BM_PW = #{bm_pw}
 	</update>
-	
+
 	<update id="boardSUpdate" parameterType="map">
 		UPDATE BOARD_SUB_T
 		SET BS_FILE = #{bs_file}

@@ -1,5 +1,6 @@
 package web.mvc;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -89,12 +90,36 @@ public class Board41Logic {
 	}
 
 	public int boardDelete(Map<String, Object> target) {
-		int	boardMDelete	= 0;
-		int	boardSDelete	= 0;
-		int	result			= 0;
+		int		boardMDelete	= 0;
+		int		boardSDelete	= 0;
+		int		result			= 0;
 
-		boardSDelete = boardSDao.boardSDelete(target);
+		String	filePath		= "D:\\Programming\\portfolio-ysy\\lab_spring4\\spring4_1_1\\WebContent\\pds\\";
+		String	fileName		= String.valueOf(target.get("bs_file"));
+		String	fullName		= filePath + fileName;
+
 		boardMDelete = boardMDao.boardMDelete(target);
+
+		try {
+			File file = new File(fullName);
+
+			if (file != null) {
+
+				if (file.exists()) {
+					boolean isDeleted = file.delete();
+
+					if (isDeleted) {
+						// 일단은 상수로 넣어둠
+						target.put("bs_seq", 1);
+						boardSDelete = boardSDao.boardSDelete(target);
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			logger.info("파일 삭제 실패 : " + e.getMessage());
+		}
+
 
 		if (boardMDelete != -1 && boardSDelete != -1) {
 			result = 1;

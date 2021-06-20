@@ -61,7 +61,7 @@
 	function boardDelete() {
 		if (isCorrect()) {
 			alert('삭제되었습니다.');
-			location.href = './boardDelete.sp4?bm_no=' + <%=boardDetail.get(0).get("BM_NO")%>
+			location.href = './boardDelete.sp4?bm_no=<%=boardDetail.get(0).get("BM_NO")%>&bs_file=<%=boardDetail.get(0).get("BS_FILE")%>';
 	} else {
 			alert('비밀번호가 틀렸습니다.');
 		}
